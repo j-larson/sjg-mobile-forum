@@ -63,7 +63,6 @@ public class FrontPageModel {
                     int id = Integer.parseInt(sid);
                     curGroup.forums.add(new Forum(name, id));
                 }
-                  
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
