@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SJG Forums Mobile 2</title>
+    <title>SJG Forums Mobile</title>
 
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -50,7 +50,7 @@
 	    }
 	  %>
 	  
-	  <a class="btn btn-primary btn-block" href="http://forums.sjgames.com" role="button">View on Original Site</a>
+	  <a class="btn btn-primary btn-block" href="http://forums.sjgames.com">View on Original Site</a>
     </div> <!-- container-fluid -->
   </body>
 </html>
