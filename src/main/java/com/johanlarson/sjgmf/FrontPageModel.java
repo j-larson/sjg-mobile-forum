@@ -2,6 +2,7 @@ package com.johanlarson.sjgmf;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,6 +57,22 @@ public class FrontPageModel {
             loadFromDocument(doc);
         } catch (IOException e) {
             throw new RuntimeException("Unable to parse HTML document from url " + url, e);
+        }
+    }
+    
+    // Consumes (and closes!) the input stream.
+    public void loadFromInputStream(InputStream is) {
+        try {
+            Document doc = Jsoup.parse(is, null, "http://forums.sjgames.com");
+            loadFromDocument(doc);
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to parse HTML document from input stream.", e);
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                throw new RuntimeException("Unable to close input stream.", e);
+            }
         }
     }
     
