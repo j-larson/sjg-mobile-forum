@@ -12,14 +12,14 @@
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
+			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="http://www.sjgames.com">SJG Forums Mobile</a>
 				</div>
 			</div>
 		</nav>
 
-		<div class="container-fluid">
+		<div class="container">
 			<ol class="breadcrumb">
 				<li class="active"><a href="#">Home</a></li>
 			</ol>
@@ -49,6 +49,6 @@
 			%>
 	  
 			<a class="btn btn-primary btn-block" href="http://forums.sjgames.com">View on Original Site</a>
-		</div> <!-- container-fluid -->
+		</div> <!-- container -->
 	</body>
 </html>

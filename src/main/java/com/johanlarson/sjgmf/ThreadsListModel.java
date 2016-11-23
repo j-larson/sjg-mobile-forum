@@ -100,9 +100,9 @@ public class ThreadsListModel {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		//File input = new File("C:\\johan\\code\\web-dev\\pages\\forum.html");
-		//Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
-		Document doc = Jsoup.connect("http://forums.sjgames.com/forumdisplay.php?f=2").get();
+		File input = new File("C:\\johan\\code\\web-dev\\pages\\forum.html");
+		Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
+		//Document doc = Jsoup.connect("http://forums.sjgames.com/forumdisplay.php?f=2").get();
 		
 		ThreadsListModel model = new ThreadsListModel();
 		model.loadFromDocument(doc);

@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
+			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="http://www.sjgames.com">SJG Forums Mobile</a>
 				</div>
@@ -29,7 +29,6 @@
 			if (pageNum == null) {
 				pageNum = "1";
 			}
-			int pageNumI = Integer.parseInt(pageNum);
 			ThreadsListModel model = new ThreadsListModel();
 			String sourcePage = String.format("http://forums.sjgames.com/forumdisplay.php?f=%s&page=%s", fId, pageNum);
 			model.loadFromPage(sourcePage);
@@ -55,9 +54,9 @@
 						}
 						
 						// round up; we want the link to point to the last page
-						int numPages = (numPosts + 19) / 20;  
+						int numPages = (numPosts + 9) / 10;  
 				%>
-						<a href="postlist.jsp?t=<%= thread.id %>&page=<%= numPages %>" class="list-group-item">
+						<a href="postslist.jsp?t=<%= thread.id %>&page=<%= numPages %>" class="list-group-item">
 							<p class="list-group-item-text text-primary lead"><%= thread.title %></p>
 							<p class="list-group-item-text">
 								<small><%= thread.threadStartAuthor %> | <%= numPosts %> <%= postString %> | <%= thread.lastPostTime %></small></p>
@@ -70,6 +69,6 @@
 			<%= paginatorHtml %>
 	 
 			<a class="btn btn-primary btn-block" href="<%= sourcePage %>">View on Original Site</a>
-		</div> <!-- container-fluid -->
+		</div> <!-- container -->
 	</body>
 </html>
