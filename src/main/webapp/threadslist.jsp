@@ -31,9 +31,10 @@
 			}
 			int pageNumI = Integer.parseInt(pageNum);
 			ThreadsListModel model = new ThreadsListModel();
-			model.loadFromPage(String.format("http://forums.sjgames.com/forumdisplay.php?f=%s&page=%s", fId, pageNum));
+			String sourcePage = String.format("http://forums.sjgames.com/forumdisplay.php?f=%s&page=%s", fId, pageNum);
+			model.loadFromPage(sourcePage);
 			
-			String paginatorHtml = RenderingHelpers.createPaginatorHtml("threadslist.jsp?f=" + fId + "&", 7, 12);
+			String paginatorHtml = RenderingHelpers.createPaginatorHtml("threadslist.jsp?f=" + fId + "&", model.curPage, model.totalPages);
 		%>
 
 		<div class="container-fluid">
@@ -68,7 +69,7 @@
 
 			<%= paginatorHtml %>
 	 
-			<a class="btn btn-primary btn-block" href="http://forums.sjgames.com/forumdisplay.php?f=<%= fId %>&page=<%= pageNum %>">View on Original Site</a>
+			<a class="btn btn-primary btn-block" href="<%= sourcePage %>">View on Original Site</a>
 		</div> <!-- container-fluid -->
 	</body>
 </html>

@@ -31,6 +31,8 @@ public class ThreadsListModel {
 	
 	public List<Thread> threads;
 	public String name;
+	public int curPage;
+	public int totalPages;
 	
 	public ThreadsListModel() {
 		threads = new LinkedList<>();
@@ -50,6 +52,20 @@ public class ThreadsListModel {
     	Elements ne = doc.select("td.navbar strong");
     	name = ne.text();
     	
+    	// Pagination information.
+    	curPage = 1;
+    	totalPages = 1;
+    	Elements paginators = doc.select("div.pagenav tbody tr td.vbmenu_control");
+    	for (Element e : paginators) {
+    		String paginatorText = e.text();
+    		if (paginatorText.startsWith("Page ")) {
+    			String[] words = paginatorText.split(" ");
+    			curPage = Integer.parseInt(words[1]);
+    			totalPages = Integer.parseInt(words[3]);
+    			break;
+    		}
+    	}
+
     	// Threads and thread details
 		Elements els = doc.select("td.alt1 div a");
 		for (Element el : els) {
@@ -59,13 +75,22 @@ public class ThreadsListModel {
 				String id = params.get("t");
 				String threadStartAuthor = el.parent().nextElementSibling().child(0).text();
 				Element row = el.parent().parent().parent();
-				String numRepliesString = row.child(3).child(0).text();
-				String numRepliesNoCommas = numRepliesString.replaceAll(",", "");
-				int numReplies = Integer.parseInt(numRepliesNoCommas);
-				
-				String time = row.child(2).child(0).text();
-				int startGarbage = time.indexOf(" by");
-				String lastPostTime = time.substring(0, startGarbage);
+				Element column = row.child(3);
+				int numReplies = 0;
+			    String numRepliesString = column.text();
+			    String numRepliesNoCommas = numRepliesString.replaceAll(",", "");
+			    try {
+					numReplies = Integer.parseInt(numRepliesNoCommas);
+			    } catch (NumberFormatException e) {
+			    	numReplies = 0;
+			    }
+			    String lastPostTime = "-";  // missing
+			    Elements timeEls = row.child(2).select("div.smallfont");
+				if (timeEls.size() > 0) {
+					String time = timeEls.get(0).text();
+					int startGarbage = time.indexOf(" by");
+					lastPostTime = time.substring(0, startGarbage);
+				}
 		
 				Thread thread = new Thread(id, name, numReplies, threadStartAuthor, lastPostTime);
 				threads.add(thread);
@@ -75,11 +100,13 @@ public class ThreadsListModel {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		File input = new File("C:\\johan\\code\\web-dev\\pages\\forum.html");
-		Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
+		//File input = new File("C:\\johan\\code\\web-dev\\pages\\forum.html");
+		//Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
+		Document doc = Jsoup.connect("http://forums.sjgames.com/forumdisplay.php?f=2").get();
 		
 		ThreadsListModel model = new ThreadsListModel();
 		model.loadFromDocument(doc);
+		
 	}
 
 }
