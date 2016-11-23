@@ -3,7 +3,6 @@ package com.johanlarson.sjgmf;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -76,20 +75,6 @@ public class FrontPageModel {
         }
     }
     
-    // Quick and dirty.
-    static Map<String, String> getParametersFromUrl(String url) {
-        Map<String, String> m = new HashMap<>();
-        int whereQuestionMark = url.indexOf("?");
-        String parametersSection = url.substring(whereQuestionMark+1);
-        String[] parameterPairs = parametersSection.split("&");
-        for (String parameterPair : parameterPairs) {
-            String[] sections = parameterPair.split("=");
-            if (sections.length >= 2) {
-                m.put(sections[0], sections[1]);
-            }
-        }
-        return m;
-    }
 
     private void loadFromDocument(Document doc) {
         ForumGroup curGroup = null;
@@ -109,7 +94,7 @@ public class FrontPageModel {
                 }
                 Element link = links.first();
                 String name = link.text(); 
-                Map<String, String> parms = getParametersFromUrl(link.attr("href"));
+                Map<String, String> parms = ModelHelpers.getParametersFromUrl(link.attr("href"));
                 String sid = parms.get("f");
                 int id = Integer.parseInt(sid);
                 curGroup.forums.add(new Forum(name, id));
