@@ -28,6 +28,6 @@
 	</dependencies>
 	
 	<build>
-		<finalName>SJGamesMobileForum</finalName>
+		<finalName>sjg</finalName>
 	</build>
 </project>

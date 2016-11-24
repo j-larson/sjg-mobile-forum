@@ -22,7 +22,9 @@ public class RenderingHelpers {
 		out.append(symbol).append("</a></li>\n");
 	}
 	
-	public static String createPaginatorHtml(String linkBase, int curPage, int totalPages) {
+	public static String createPaginatorHtml(String linkBase, PaginatorInfo paginatorInfo) {
+		int curPage = paginatorInfo.curPage;
+		int totalPages = paginatorInfo.totalPages;
 		if (curPage == 1 && totalPages == 1) {
 			return ""; // No paginator.
 		}
@@ -55,9 +57,5 @@ public class RenderingHelpers {
 		
 		out.append("</ul>\n");
 		return out.toString();
-	}
-	
-    public static void main(String[] args) {
-        System.out.println(createPaginatorHtml("wheretogo.jsp?", 5, 5));
-    }
+	}	
 }

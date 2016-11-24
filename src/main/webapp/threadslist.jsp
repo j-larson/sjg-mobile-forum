@@ -23,17 +23,17 @@
 		<%
 			String fId = request.getParameter("f");
 			if (fId == null) {
-				throw new RuntimeException("threadlist.jsp invoked without forum id parameter (f)");
+				throw new RuntimeException("threadslist.jsp invoked without forum id parameter (f)");
 			}
 			String pageNum = request.getParameter("page");
 			if (pageNum == null) {
 				pageNum = "1";
 			}
-			ThreadsListModel model = new ThreadsListModel();
 			String sourcePage = String.format("http://forums.sjgames.com/forumdisplay.php?f=%s&page=%s", fId, pageNum);
+			ThreadsListModel model = new ThreadsListModel();
 			model.loadFromPage(sourcePage);
 			
-			String paginatorHtml = RenderingHelpers.createPaginatorHtml("threadslist.jsp?f=" + fId + "&", model.curPage, model.totalPages);
+			String paginatorHtml = RenderingHelpers.createPaginatorHtml("threadslist.jsp?f=" + fId + "&", model.paginatorInfo);
 		%>
 
 		<div class="container-fluid">

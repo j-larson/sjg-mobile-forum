@@ -31,11 +31,11 @@ public class ThreadsListModel {
 	
 	public List<Thread> threads;
 	public String name;
-	public int curPage;
-	public int totalPages;
+	public PaginatorInfo paginatorInfo;
 	
 	public ThreadsListModel() {
 		threads = new LinkedList<>();
+		paginatorInfo = new PaginatorInfo();
 	}
 	
     public void loadFromPage(String url) { 
@@ -52,19 +52,7 @@ public class ThreadsListModel {
     	Elements ne = doc.select("td.navbar strong");
     	name = ne.text();
     	
-    	// Pagination information.
-    	curPage = 1;
-    	totalPages = 1;
-    	Elements paginators = doc.select("div.pagenav tbody tr td.vbmenu_control");
-    	for (Element e : paginators) {
-    		String paginatorText = e.text();
-    		if (paginatorText.startsWith("Page ")) {
-    			String[] words = paginatorText.split(" ");
-    			curPage = Integer.parseInt(words[1]);
-    			totalPages = Integer.parseInt(words[3]);
-    			break;
-    		}
-    	}
+    	paginatorInfo.loadFromDocument(doc);
 
     	// Threads and thread details
 		Elements els = doc.select("td.alt1 div a");
